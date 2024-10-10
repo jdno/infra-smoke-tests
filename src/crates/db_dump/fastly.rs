@@ -2,11 +2,10 @@
 
 use async_trait::async_trait;
 use reqwest::redirect::Policy;
-use reqwest::Client;
 
 use crate::assertion::{is_redirect, redirects_to};
 use crate::crates::db_dump::ARTIFACTS;
-use crate::test::{Test, TestResult};
+use crate::test::{test_http_client, Test, TestResult};
 
 use super::config::Config;
 
@@ -29,7 +28,7 @@ impl<'a> Fastly<'a> {
 
     /// Request the given path and expect a redirect to CloudFront
     async fn request_and_expect_redirect(&self, path: &str) -> TestResult {
-        let response = match Client::builder()
+        let response = match test_http_client()
             // Don't follow the redirect, we want to check the redirect location
             .redirect(Policy::none())
             .build()

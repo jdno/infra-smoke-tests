@@ -4,12 +4,14 @@ use async_trait::async_trait;
 
 pub use self::test_group::TestGroup;
 pub use self::test_group_result::TestGroupResult;
+pub use self::test_http_client_builder::test_http_client;
 pub use self::test_result::TestResult;
 pub use self::test_suite::TestSuite;
 pub use self::test_suite_result::TestSuiteResult;
 
 mod test_group;
 mod test_group_result;
+mod test_http_client_builder;
 mod test_result;
 mod test_suite;
 mod test_suite_result;

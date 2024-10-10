@@ -7,10 +7,9 @@ use std::fmt::{Display, Formatter};
 
 use async_trait::async_trait;
 use reqwest::header::{HeaderMap, HeaderValue};
-use reqwest::Client;
 
 use crate::environment::Environment;
-use crate::test::{Test, TestGroup, TestGroupResult, TestResult};
+use crate::test::{test_http_client, Test, TestGroup, TestGroupResult, TestResult};
 
 pub use self::cloudfront::CloudFront;
 pub use self::config::Config;
@@ -80,7 +79,7 @@ async fn request_url_and_expect_cors_header(name: &'static str, url: &str) -> Te
         HeaderValue::from_str("https://example.com").expect("failed to parse header value"),
     );
 
-    let response = match Client::builder()
+    let response = match test_http_client()
         .default_headers(headers)
         .build()
         .expect("failed to build reqwest client")
